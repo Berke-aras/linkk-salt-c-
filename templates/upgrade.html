@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Premium Yükseltme</title>
+        <meta
+            name="description"
+            content="Uzun URL'lerinizi hızlı ve kolay bir şekilde kısaltın, paylaşımınızı daha pratik hale getirin."
+        />
+        <meta
+            name="keywords"
+            content="link kısaltma, URL kısaltma, kısa link, bağlantı kısaltma"
+        />
+        <meta name="author" content="Sitenizin Adı" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.sitenizinadi.com/" />
+        <meta property="og:title" content="Link Kısaltma Uygulaması" />
+        <meta
+            property="og:description"
+            content="Uzun URL'lerinizi hızlı ve kolay bir şekilde kısaltın, paylaşımınızı daha pratik hale getirin."
+        />
+        <meta property="og:url" content="https://www.sitenizinadi.com/" />
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:image"
+            content="https://www.sitenizinadi.com/logo.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Link Kısaltma Uygulaması" />
+        <meta
+            name="twitter:description"
+            content="Uzun URL'lerinizi hızlı ve kolay bir şekilde kısaltın, paylaşımınızı daha pratik hale getirin."
+        />
+        <meta
+            name="twitter:image"
+            content="https://www.sitenizinadi.com/logo.png"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='styles.css') }}"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='styles.css') }}"
+        />
+    </head>
+    <body class="dark">
+        <div class="container">
+            <h1>Premium Üyelik Yükseltme</h1>
+            <p>
+                Premium üyelik için 1 TL ödeme yapacaksınız. Ödeme işlemini
+                başlatmak için aşağıdaki butona tıklayın.
+            </p>
+            {% with messages = get_flashed_messages(with_categories=true) %} {%
+            if messages %} {% for category, message in messages %}
+            <div class="message {{ category }}">{{ message }}</div>
+            {% endfor %} {% endif %} {% endwith %}
+            <form action="{{ url_for('upgrade_initiate') }}" method="POST">
+                <button type="submit">Ödeme Başlat</button>
+            </form>
+            <p><a href="{{ url_for('index') }}">Geri Dön</a></p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta
+            name="description"
+            content="Uzun URL'lerinizi hızlı ve kolay bir şekilde kısaltın, paylaşımınızı daha pratik hale getirin."
+        />
+        <meta
+            name="keywords"
+            content="link kısaltma, URL kısaltma, kısa link, bağlantı kısaltma"
+        />
+        <meta name="author" content="Sitenizin Adı" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.sitenizinadi.com/" />
+        <meta property="og:title" content="Link Kısaltma Uygulaması" />
+        <meta
+            property="og:description"
+            content="Uzun URL'lerinizi hızlı ve kolay bir şekilde kısaltın, paylaşımınızı daha pratik hale getirin."
+        />
+        <meta property="og:url" content="https://www.sitenizinadi.com/" />
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:image"
+            content="https://www.sitenizinadi.com/logo.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Link Kısaltma Uygulaması" />
+        <meta
+            name="twitter:description"
+            content="Uzun URL'lerinizi hızlı ve kolay bir şekilde kısaltın, paylaşımınızı daha pratik hale getirin."
+        />
+        <meta
+            name="twitter:image"
+            content="https://www.sitenizinadi.com/logo.png"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='styles.css') }}"
+        />
+  <title>Hakkında</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="dark">
+  <div class="container">
+    <div class="nav">
+      <a href="{{ url_for('index') }}">Anasayfa</a> | 
+      <a href="{{ url_for('about') }}">Hakkında</a> | 
+      <a href="{{ url_for('my_links') }}">Linklerim</a>
+      {% if session.get('user_id') %}
+        | <a href="{{ url_for('logout') }}">Çıkış Yap</a>
+      {% else %}
+        | <a href="{{ url_for('login') }}">Giriş Yap</a> | <a href="{{ url_for('signup') }}">Kayıt Ol</a>
+      {% endif %}
+    </div>
+    <h1>Site Hakkında</h1>
+    <p>
+      Bu site ile uzun URL’leri kolayca kısaltabilir ve paylaşabilirsiniz. Üye değilseniz,
+      oluşturduğunuz linkler 24 saat sonra otomatik olarak silinir. Aynı zamanda tarayıcınızın cookie’leri ile
+      link geçmişinizi görüntüleyebilirsiniz.
+    </p>
+    <p>
+      Üyeler için avantajlar:
+      <ul>
+        <li>Kendi oluşturduğunuz linkleri listeleyip yönetme (silme) imkanı.</li>
+        <li>Ücretsiz üyelerde sınırsız link oluşturma hakkı 5 adet ile sınırlandırılmıştır.</li>
+        <li>Premium üye iseniz sınırsız link oluşturabilirsiniz.</li>
+      </ul>
+    </p>
+    <p>
+      Premium üyelik için ödeme alt yapımız iyzico üzerinden gerçekleştirilir. Ödeme işlemi sonrası hesabınız premium'a yükseltilir.
+    </p>
+  </div>
+</body>
+</html>

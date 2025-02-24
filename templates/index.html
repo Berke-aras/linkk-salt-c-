@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Link Kısaltma Uygulaması - Kısaltın ve Paylaşın</title>
+        <meta
+            name="description"
+            content="Uzun URL'lerinizi hızlı ve kolay bir şekilde kısaltın, paylaşımınızı daha pratik hale getirin."
+        />
+        <meta
+            name="keywords"
+            content="link kısaltma, URL kısaltma, kısa link, bağlantı kısaltma"
+        />
+        <meta name="author" content="Sitenizin Adı" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.sitenizinadi.com/" />
+        <meta property="og:title" content="Link Kısaltma Uygulaması" />
+        <meta
+            property="og:description"
+            content="Uzun URL'lerinizi hızlı ve kolay bir şekilde kısaltın, paylaşımınızı daha pratik hale getirin."
+        />
+        <meta property="og:url" content="https://www.sitenizinadi.com/" />
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:image"
+            content="https://www.sitenizinadi.com/logo.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Link Kısaltma Uygulaması" />
+        <meta
+            name="twitter:description"
+            content="Uzun URL'lerinizi hızlı ve kolay bir şekilde kısaltın, paylaşımınızı daha pratik hale getirin."
+        />
+        <meta
+            name="twitter:image"
+            content="https://www.sitenizinadi.com/logo.png"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='styles.css') }}"
+        />
+        <script>
+            function toggleTheme() {
+                document.body.classList.toggle("light");
+                document.body.classList.toggle("dark");
+            }
+        </script>
+    </head>
+
+    <body class="dark">
+        <div class="container">
+            <div class="nav">
+                <button onclick="toggleTheme()" class="theme-toggle">
+                    Tema Değiştir
+                </button>
+                <a href="{{ url_for('index') }}">Anasayfa</a> |
+                <a href="{{ url_for('about') }}">Hakkında</a> |
+                <a href="{{ url_for('my_links') }}">Linklerim</a>
+                {% if user %} | Hoşgeldin, {{ user['username'] }} |
+                <a href="{{ url_for('logout') }}">Çıkış Yap</a>
+                {% if user['role'] == 'free' %}
+                <span class="upgrade"
+                    ><a href="{{ url_for('upgrade') }}"
+                        >Premium Yükselt (Aylık Ödeme)</a
+                    ></span
+                >
+                {% endif %} {% else %} |
+                <a href="{{ url_for('login') }}">Giriş Yap</a> |
+                <a href="{{ url_for('signup') }}">Kayıt Ol</a>
+                {% endif %}
+            </div>
+            <h1>Link Kısaltma</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %} {%
+            if messages %} {% for category, message in messages %}
+            <div class="message {{ category }}">{{ message }}</div>
+            {% endfor %} {% endif %} {% endwith %}
+            <form action="{{ url_for('shorten') }}" method="POST">
+                <input
+                    type="url"
+                    name="url"
+                    placeholder="Uzun linki buraya yapıştırın"
+                    required
+                />
+                <button type="submit">Kısalt</button>
+            </form>
+            <div class="ad">
+                <!-- GoogleAds yerine alternatif reklam sağlayıcı (örneğin PropellerAds) için örnek yer tutucu -->
+                <p>
+                    Reklam: En iyi hosting hizmetleri için PropellerAds reklamı!
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

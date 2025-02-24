@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="description"
+            content="Uzun URL'lerinizi hızlı ve kolay bir şekilde kısaltın, paylaşımınızı daha pratik hale getirin."
+        />
+        <meta
+            name="keywords"
+            content="link kısaltma, URL kısaltma, kısa link, bağlantı kısaltma"
+        />
+        <meta name="author" content="Sitenizin Adı" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.sitenizinadi.com/" />
+        <meta property="og:title" content="Link Kısaltma Uygulaması" />
+        <meta
+            property="og:description"
+            content="Uzun URL'lerinizi hızlı ve kolay bir şekilde kısaltın, paylaşımınızı daha pratik hale getirin."
+        />
+        <meta property="og:url" content="https://www.sitenizinadi.com/" />
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:image"
+            content="https://www.sitenizinadi.com/logo.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Link Kısaltma Uygulaması" />
+        <meta
+            name="twitter:description"
+            content="Uzun URL'lerinizi hızlı ve kolay bir şekilde kısaltın, paylaşımınızı daha pratik hale getirin."
+        />
+        <meta
+            name="twitter:image"
+            content="https://www.sitenizinadi.com/logo.png"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='styles.css') }}"
+        />
+        <title>Linklerim</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='styles.css') }}"
+        />
+    </head>
+    <body class="dark">
+        <div class="container">
+            <div class="nav">
+                <a href="{{ url_for('index') }}">Anasayfa</a> |
+                <a href="{{ url_for('about') }}">Hakkında</a> |
+                <a href="{{ url_for('my_links') }}">Linklerim</a>
+                {% if session.get('user_id') %} |
+                <a href="{{ url_for('logout') }}">Çıkış Yap</a> {% else %} |
+                <a href="{{ url_for('login') }}">Giriş Yap</a> |
+                <a href="{{ url_for('signup') }}">Kayıt Ol</a>
+                {% endif %}
+            </div>
+            <h1>Linklerim</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %} {%
+            if messages %} {% for category, message in messages %}
+            <div class="message {{ category }}">{{ message }}</div>
+            {% endfor %} {% endif %} {% endwith %} {% if links %}
+            <table>
+                <tr>
+                    <th>Kısa Link</th>
+                    <th>Orijinal URL</th>
+                    <th>Oluşturulma Tarihi</th>
+                    {% if user_type == 'member' %}
+                    <th>İşlem</th>
+                    {% endif %}
+                </tr>
+                {% for link in links %}
+                <tr>
+                    <td>
+                        <a
+                            href="{{ request.host_url }}{{ link['short_code'] if user_type=='member' else link.short_code }}"
+                            target="_blank"
+                            >{{ request.host_url }}{{ link['short_code'] if
+                            user_type=='member' else link.short_code }}</a
+                        >
+                    </td>
+                    <td>
+                        {{ link['original_url'] if user_type=='member' else
+                        link.original_url }}
+                    </td>
+                    <td>
+                        {{ link['created_at'] if user_type=='member' else
+                        link.created_at }}
+                    </td>
+                    {% if user_type == 'member' %}
+                    <td>
+                        <a
+                            href="{{ url_for('delete_link', link_id=link['id']) }}"
+                            >Sil</a
+                        >
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p>Henüz link oluşturulmamış.</p>
+            {% endif %}
+        </div>
+    </body>
+</html>
