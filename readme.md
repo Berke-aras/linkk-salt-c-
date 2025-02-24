@@ -9,6 +9,7 @@ Bu proje, uzun URL'leri kısaltmak için geliştirilmiş bir web uygulamasıdır
 -   **Kullanıcı Yönetimi**: Kayıt olma, giriş yapma ve kullanıcıya özel link yönetimi.
 -   **Papara Entegrasyonu**: Kullanıcılardan ödeme almak için Papara entegrasyonu.
 -   **Reklam Gösterimi**: Uygulama içi reklam alanlarıyla gelir elde etme.
+-   **Log Tutma**: Site logları kaydedilir.
 
 ## Kurulum
 
